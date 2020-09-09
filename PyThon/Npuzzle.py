@@ -1,18 +1,25 @@
-def getInvCount(arr):
-  inv_count = 0
-  for i in range(16-1):
-    for j in range(16):
-      if (arr[i] > arr[j]):
-        inv_count += 1
-  # print(inv_count)
-  return inv_count
+def getInvCount(arr, n):
+    inv_count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            if (arr[i] > arr[j]):
+                inv_count += 1
+    return inv_count
 
-def IsSolvable(puzzle):
-  invCount=getInvCount(puzzle)
-  return (invCount%2!=0)
+def solve(arr, n):
+    count = 0
+    for i in range(n - 1):
+        for j in range(i + 1, n):
+            if arr[j] and arr[i] and arr[i] > arr[j]:
+                count += 1
+    return count % 2 == 0
 
-puzzle=[6,1,10,2,7,11,4,14,5,0,9,15,8,12,13,3]
-n=len(puzzle)
-if(IsSolvable(puzzle)):
-  print("Solvable")
-else:print("Not Solvable")
+arr = [[8, 1, 2], [0, 4, 3], [7, 6, 5]]
+n = len(arr)
+
+print("Number of inversions are",
+    getInvCount(arr, n))
+if solve(arr, n) == 0:
+    print("Solvable")
+elif solve(arr, n) != 0:
+    print("Not solvable")
